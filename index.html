@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>註冊 - AT99</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            /* 調整透明度：從 0.95 降至 0.6，增加透明感 */
+            --at-card: rgba(11, 22, 35, 0.6); 
+            --at-border: #4d688a;
+            --at-neon: #00f2ff;
+            --at-text-gray: #8b9eb5;
+            --at-warning: #ff4d4d;
+            --at-btn-grad-start: #81f5ff;
+            --at-btn-grad-end: #61d7e2;
+            --at-btn-text: #1d6e75;
+        }
+
+        body {
+            background-image: url('https://yoyoa93351.github.io/at99168/assets/images/1775576722_bg_signup.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #050a12;
+            
+            font-family: "Microsoft JhengHei", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0 50px;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* 模擬視窗 */
+        .modal-container {
+            width: 92%;
+            max-width: 420px;
+            background-color: var(--at-card);
+            border: 1.5px solid var(--at-neon);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            /* 關鍵：增加模糊強度以產生霧面玻璃質感 */
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            margin-bottom: 25px;
+        }
+
+        .modal-title-bar {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-title-bar h6 {
+            margin: 0;
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .hero-banner {
+            width: 100%;
+            display: block;
+        }
+
+        .form-content {
+            padding: 20px;
+        }
+
+        .label-group {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .label-group span {
+            color: var(--at-warning);
+            margin-right: 2px;
+        }
+
+        /* 輸入框維持較深色以確保文字清晰 */
+        .input-box {
+            background-color: rgba(14, 23, 36, 0.85);
+            border: 1.2px solid var(--at-border);
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 45px;
+        }
+
+        .input-box.readonly {
+            background-color: rgba(26, 43, 61, 0.9);
+            font-weight: bold;
+        }
+
+        .hint-text {
+            font-size: 11px;
+            color: var(--at-text-gray);
+            margin-bottom: 15px;
+        }
+
+        .btn-verify {
+            background-color: #a4c2e6;
+            color: #111;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .support-text {
+            text-align: center;
+            font-size: 12px;
+            color: #ff7ab5;
+            margin: 10px 0 20px;
+            font-weight: bold;
+        }
+
+        .agreement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .check-square {
+            width: 17px;
+            height: 17px;
+            border: 1.5px solid var(--at-neon);
+            border-radius: 3px;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .highlight-link {
+            color: #f7e06a;
+            text-decoration: underline;
+        }
+
+        .special-cta-btn {
+            width: 92%;
+            max-width: 420px;
+            height: 55px;
+            background: linear-gradient(180deg, var(--at-btn-grad-start) 0%, var(--at-btn-grad-end) 100%);
+            color: var(--at-btn-text);
+            font-size: 20px;
+            font-weight: 900;
+            text-align: center;
+            line-height: 55px;
+            text-decoration: none !important;
+            border-radius: 8px 0px 8px 8px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            border: none;
+            transition: 0.3s;
+        }
+
+        .special-cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 0 0 0 8px;
+        }
+
+        .js-all-link {
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1341471834143072');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height='1' width='1' style='display:none' src='https://www.facebook.com/tr?id=1341471834143072&ev=PageView&noscript=1'/></noscript>
+    <!-- End Facebook Pixel Code -->
+</head>
+<body>
+
+    <div class="modal-container">
+        <div class="modal-title-bar">
+            <h6>註冊</h6>
+            <i class="bi bi-x-lg" style="color: #6482a3; font-size: 16px;"></i>
+        </div>
+
+        <div class="js-all-link">
+            <img id="js-main-img" src="" alt="" class="hero-banner">
+        </div>
+
+        <div class="form-content">
+            <div class="input-box readonly js-all-link">KUN01</div>
+            <div class="hint-text"></div>
+
+            <div class="label-group"><span>*</span>會員帳號</div>
+            <div class="input-box js-all-link">
+                <span></span>
+                <i class="bi bi-x-lg" style="color: #666; font-size: 14px;"></i>
+            </div>
+            <div class="hint-text">2 - 15 字符，字母開頭，限字母，數字和底線</div>
+
+            <div class="label-group"><span>*</span>會員密碼</div>
+            <div class="input-box js-all-link">
+                <span></span>
+                <i class="bi bi-eye" style="color: #666; font-size: 16px;"></i>
+            </div>
+            <div class="hint-text">密碼需為 6 個字符以上且須包含字母和數字</div>
+
+            <div class="label-group"><span>*</span>確認密碼</div>
+            <div class="input-box js-all-link">
+                <span></span>
+                <i class="bi bi-eye" style="color: #666; font-size: 16px;"></i>
+            </div>
+            <div class="hint-text"></div>
+
+            <div class="label-group"><span>*</span>手機號碼</div>
+            <div class="input-box js-all-link"></div>
+            <div class="hint-text"></div>
+
+            <div class="label-group"><span>*</span>手機驗證碼</div>
+            <div class="input-box js-all-link">
+                <span></span>
+                <button class="btn-verify">取得驗證碼</button>
+            </div>
+
+            <div class="support-text js-all-link">* 若未收到簡訊請聯繫客服</div>
+
+            <div class="agreement js-all-link">
+                <div class="check-square"></div>
+                <div>已滿18 歲，且同意本站 <span class="highlight-link">用戶註冊協議</span></div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="special-cta-btn js-all-link">立即註冊</a>
+
+    <script>
+        const CONFIG = {
+            targetUrl: 'https://m.at99tw.net/Register?p=KUN01', 
+            mainImgUrl: 'https://yoyoa93351.github.io/at99168/assets/images/1775588925_dialog_banner.png',
+            pixelEventName: 'CompleteRegistration'
+        };
+
+        document.getElementById('js-main-img').src = CONFIG.mainImgUrl;
+
+        document.querySelectorAll('.js-all-link').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (typeof fbq === 'function') { fbq('track', CONFIG.pixelEventName); }
+                window.location.href = CONFIG.targetUrl;
+            });
+        });
+    </script>
+</body>
+</html>
